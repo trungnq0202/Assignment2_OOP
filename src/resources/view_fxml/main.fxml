@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="mainView" alignment="center" hgap="165.0" maxHeight="950.0" maxWidth="1400.0" minHeight="982.0" minWidth="1400.0" prefHeight="950.0" prefWidth="1400.0" stylesheets="/resources/css/main.css" vgap="10.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <ImageView fitHeight="171.0" fitWidth="394.0" nodeOrientation="INHERIT" pickOnBounds="true" styleClass="logo" GridPane.halignment="CENTER">
+            <image>
+                <Image url="@../images/logo.png" />
+            </image>
+        </ImageView>
+        <fx:include fx:id="cardPuzzle" source="cardpuzzle.fxml" />
+        <Pane prefHeight="200.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <fx:include fx:id="countdownTimer" source="countdowntimer.fxml" />
+        <fx:include fx:id="sound" source="sound.fxml" />
+      <VBox prefHeight="200.0" prefWidth="322.0" GridPane.columnIndex="1">
+          <children>
+              <fx:include fx:id="level" source="level.fxml" />
+              <fx:include fx:id="score" source="score.fxml" />
+          </children>
+      </VBox>
+    </children>
+</GridPane>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxWidth="200.0" prefHeight="50.0" prefWidth="50.0" spacing="20"
+      xmlns="http://javafx.com/javafx/10.0.2-internal"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.ScoreController">
+
+    <children>
+        <ImageView fitHeight="70.0" fitWidth="100.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+            <image>
+                <Image url="@../images/score.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="gameScoreView" contentDisplay="CENTER" prefHeight="70.0" prefWidth="100.0" text="0" textFill="RED">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+    </children>
+</HBox>

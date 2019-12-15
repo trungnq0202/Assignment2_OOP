@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox fx:id="countdownTimer" alignment="CENTER" prefHeight="100.0" prefWidth="771.0" spacing="30.0" GridPane.rowIndex="2" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CountdownTimerController">
+    <children>
+        <ImageView fitHeight="94.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/time.png" />
+            </image></ImageView>
+        <ProgressBar fx:id="countdownProgressBar" prefHeight="25.0" prefWidth="342.0" progress="1.0" style="-fx-border-radius: 20px; -fx-border-width: 4px; -fx-border-color: red;" />
+        <HBox prefHeight="141.0" prefWidth="118.0">
+            <children>
+                <Label fx:id="minutesLabel" alignment="CENTER" prefHeight="100.0" prefWidth="61.0" text="02 :" textFill="WHITE">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="secondsLabel" alignment="CENTER" prefHeight="100.0" prefWidth="56.0" text="00 :" textFill="WHITE">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="hundthsecsLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="59.0" text="00" textFill="WHITE">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <Button fx:id="btnStartPauseGame" styleClass="btn" mnemonicParsing="false" onMouseClicked="#btnStartPauseGameHandler" prefHeight="51.0" prefWidth="91.0" text="Start" />
+                <Button fx:id="btnNewGame" styleClass="btn" mnemonicParsing="false" onMouseClicked="#btnNewGameHandler" prefHeight="48.0" prefWidth="91.0" text="New Game" />
+            </children>
+        </VBox>
+    </children>
+</HBox>
