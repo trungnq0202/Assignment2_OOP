@@ -23,7 +23,7 @@ public class PlayerCardList {
     }
 
     //Method for getting object playerCard in the list based on cardNo
-    public PlayerCard getPlayerCard(int cardNo){
+    public PlayerCard getPlayerCardByNo(int cardNo){
         return playerCardList.get(cardNo);
     }
 

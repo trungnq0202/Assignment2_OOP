@@ -21,82 +21,84 @@ public class CountdownTimerController {
     @FXML private Label hundthsecsLabel;   //Label displaying hundredth of a second
 
     private MainController mainController;
-    private Sound sound;                    //Sound object for making sound when pressing the button
-    private Timeline timeline;              //Timeline object to make countdown timer animation
-    private CountDownTimer timer;           //Countdowntimer object from model
+    private Sound btnClickedSound;                    //Sound object for making sound when pressing the button
+    private Timeline timeLine;              //Timeline object to make countdown timer animation
+    private CountDownTimer countDownTimer;           //Countdowntimer object from model
 
     //Injecting maincontroller
     public void injectMainController(MainController mainController){this.mainController = mainController;}
 
     public CountdownTimerController(){
-        timer = new CountDownTimer(2,0,0);
-        sound = new Sound("BUTTON_SOUND");
-        timeline = new Timeline(new KeyFrame(Duration.millis(16), e -> updateTimer()));
-        timeline.setCycleCount(Timeline.INDEFINITE);
+        countDownTimer = new CountDownTimer(2,0,0);
+        btnClickedSound = new Sound("BUTTON_SOUND");
+        timeLine = new Timeline(new KeyFrame(Duration.millis(16), e -> updateTimer()));
+        timeLine.setCycleCount(Timeline.INDEFINITE);
     }
+
+    @FXML private void initialize(){}
 
     //make a countdown at each keyframe of the timeline animation
     private void updateTimer(){
         //If the time is over, call method for handling this lost game
-        if (!timer.countDown()) { timeline.stop(); mainController.handleGameLost();}
+        if (!countDownTimer.countDown()) { timeLine.stop(); mainController.handleGameLost();}
         //Else update countdown timer view
         setTimerLabelAndProgressBar();
     }
 
     //Update the current countdown timer values to view labels and progress bar
     private void setTimerLabelAndProgressBar(){
-        minutesLabel.setText(String.format("%02d :", timer.getMinutes()));
-        secondsLabel.setText(String.format("%02d :", timer.getSeconds()));
-        hundthsecsLabel.setText(String.format("%02d", timer.getHundthsecs()));
-        countdownProgressBar.setProgress(getTimerProgressBarValue());
+        minutesLabel.setText(String.format("%02d :", countDownTimer.getMinutes()));
+        secondsLabel.setText(String.format("%02d :", countDownTimer.getSeconds()));
+        hundthsecsLabel.setText(String.format("%02d", countDownTimer.getHundthsecs()));
+        countdownProgressBar.setProgress(calculateTimerProgressBarValue());
     }
 
     //Get the ratio between time left and the total time to display the time remaining on the progress bar
-    private double getTimerProgressBarValue(){
-        double timeRemain = timer.getMinutes() * 60 * 60 + timer.getSeconds() * 60 + timer.getHundthsecs();
+    private double calculateTimerProgressBarValue(){
+        double timeRemain = countDownTimer.getMinutes() * 60 * 60 + countDownTimer.getSeconds() * 60 + countDownTimer.getHundthsecs();
         return timeRemain / (2 * 60 * 60);
     }
 
     //Method handling start or pause game button
     @FXML private void btnStartPauseGameHandler(MouseEvent mouseEvent) {
-        if (mainController.getIsEnabledSound()) sound.makeSound(); //If the sound is currently enabled, make a "button clicked sound"
-        if (!timer.isTimerRunning()){                   //If the timer is not running -> game is being paused
-            timer.setTimerRunning(true);                //Mark the timer as now running
-            timeline.play();                            //resume updating the timer view
+        if (mainController.checkIsEnabledSound()) btnClickedSound.makeSound(); //If the sound is currently enabled, make a "button clicked sound"
+        if (!countDownTimer.isTimerRunning()){                   //If the timer is not running -> game is being paused
+            countDownTimer.setTimerRunning(true);                //Mark the timer as now running
+            timeLine.play();                            //resume updating the timer view
             btnStartPauseGame.setText("Pause");         //Change the "start or pause game button" to "Pause" name
         } else {                //If the timer is currently running -> game is being played
-            timer.setTimerRunning(false);   //Mark the timer as now paused
-            timeline.pause();               //Pause updating the timer view
+            countDownTimer.setTimerRunning(false);   //Mark the timer as now paused
+            timeLine.pause();               //Pause updating the timer view
             btnStartPauseGame.setText("Start"); //Change the "start or pause game button" to "Start" name
         }
     }
 
     //Method handling newGame button
     @FXML private void btnNewGameHandler(MouseEvent mouseEvent) {
-        if (mainController.getIsEnabledSound()) sound.makeSound(); //If the sound is currently enabled, make a "button clicked sound"
-        timeline.stop();                    //stop updating the timer view
+        if (mainController.checkIsEnabledSound()) btnClickedSound.makeSound(); //If the sound is currently enabled, make a "button clicked sound"
+        timeLine.stop();                    //stop updating the timer view
         mainController.startNewGame();      //Start a new game
     }
 
     //Check if the the timer is running or not ? -> game is running or not ?
-    public boolean getIsGameRunning(){
-        return timer.isTimerRunning();
+    public boolean checkIsGameRunning(){
+        return countDownTimer.isTimerRunning();
     }
 
     //Get the total of seconds elapsed
     public int getTimeElapsed(){
-        return 120 - (timer.getMinutes() * 60 + timer.getSeconds());
+        return 120 - (countDownTimer.getMinutes() * 60 + countDownTimer.getSeconds());
     }
 
     //Stop the countdown timer
     public void stopTimer(){
-        timeline.stop();
+        timeLine.stop();
     }
 
     public void resetTimer(){
-        timeline.stop();                    //stop updating the timer view
-        timer.setTimerRunning(false);
-        timer.setMinutes(2); timer.setSeconds(0); timer.setHundthsecs(0);   //Reset the timer minutes, seconds, hundthsecs value to the beginning
+        timeLine.stop();                    //stop updating the timer view
+        countDownTimer.setTimerRunning(false);
+        countDownTimer.setMinutes(2); countDownTimer.setSeconds(0); countDownTimer.setHundthsecs(0);   //Reset the timer minutes, seconds, hundthsecs value to the beginning
         btnStartPauseGame.setText("Start"); //Change the "start or pause game button" to "Start" name
         setTimerLabelAndProgressBar();      //Update the timer view to be as in the beginning
     }

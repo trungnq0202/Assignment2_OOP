@@ -13,16 +13,16 @@ public class Sound {
     private static final String CARD_FLIPPING_SOUND_URL = "../resources/sound/cardflip_sound.wav";
     private static final String BACKGROUND_MUSIC_URL = "../resources/sound/backgroundsong.mp3";
 
-    private static final String BUTTON_SOUND = "BUTTON_SOUND";
-    private static final String BACKGROUND_MUSIC = "BACKGROUND_MUSIC";
-    private static final String CARD_FLIPPING_SOUND = "CARD_FLIPPING_SOUND";
+    private static final String BUTTON_SOUND_TYPE = "BUTTON_SOUND";
+    private static final String BACKGROUND_MUSIC_TPYE = "BACKGROUND_MUSIC";
+    private static final String CARD_FLIPPING_SOUND_TYPE = "CARD_FLIPPING_SOUND";
 
     private Clip sound;
     private MediaPlayer backgroundMusic ;
 
-    public Sound(String handleType){
+    public Sound(String soundType){
         //Creating an "button clicking sound" object
-        if (handleType.equals(BUTTON_SOUND)){
+        if (soundType.equals(BUTTON_SOUND_TYPE)){
             try {
                 AudioInputStream soundInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(BUTTON_SOUND_URL));
                 sound = AudioSystem.getClip();
@@ -32,7 +32,7 @@ public class Sound {
             }
 
             //Creating a "background music" object
-        } else if (handleType.equals(BACKGROUND_MUSIC)) {
+        } else if (soundType.equals(BACKGROUND_MUSIC_TPYE)) {
             try {
                 URL resource = getClass().getResource(BACKGROUND_MUSIC_URL);
                 backgroundMusic = new MediaPlayer(new Media(resource.toString()));
@@ -45,7 +45,7 @@ public class Sound {
             }
 
             //Creating a "card flipping sound" object
-        } else if (handleType.equals(CARD_FLIPPING_SOUND)){
+        } else if (soundType.equals(CARD_FLIPPING_SOUND_TYPE)){
             try {
                 AudioInputStream soundInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(CARD_FLIPPING_SOUND_URL));
                 sound = AudioSystem.getClip();

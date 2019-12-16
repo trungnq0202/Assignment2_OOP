@@ -7,6 +7,9 @@ public class ScoreController {
     @FXML private Label gameScoreView;
     private MainController mainController; //Communicate with others controller through maincontroller
 
+    public ScoreController(){}
+    @FXML private void initialize(){}
+
     //Injecting maincontroller
     public void injectMainController(MainController mainController){this.mainController = mainController;}
 

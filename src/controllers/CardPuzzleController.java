@@ -55,7 +55,7 @@ public class CardPuzzleController {
                                                 //if not matched, flip close these 2 cards
         playerCard.setIsFlippedOpen(true);      //Set this card "isFlippedOpen" state
         flip.play();
-        if (mainController.getIsEnabledSound()) cardFlipSound.makeSound(); //If the sound is currently enabled, make a "button clicked sound"
+        if (mainController.checkIsEnabledSound()) cardFlipSound.makeSound(); //If the sound is currently enabled, make a "button clicked sound"
         playerCard.setPlayerImage();
     }
 
@@ -64,14 +64,14 @@ public class CardPuzzleController {
         RotateTransition flip = createflipAnimation(playerCard);
         playerCard.setIsFlippedOpen(false);
         flip.play();
-        if (mainController.getIsEnabledSound()) cardFlipSound.makeSound();
+        if (mainController.checkIsEnabledSound()) cardFlipSound.makeSound();
         playerCard.setDefaultImage();
     }
 
     //Remove the current card list from the puzzle view
     public void removePrevCardList(){
         for (int i = 0; i < playerCardList.getPlayerCardListSize(); i++){
-            playerCardPuzzle.getChildren().remove(playerCardList.getPlayerCard(i));
+            playerCardPuzzle.getChildren().remove(playerCardList.getPlayerCardByNo(i));
         }
     }
 
@@ -83,7 +83,7 @@ public class CardPuzzleController {
         int tempCardNo = 0;
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 5; col++) {
-                PlayerCard playerCard = playerCardList.getPlayerCard(tempCardNo);
+                PlayerCard playerCard = playerCardList.getPlayerCardByNo(tempCardNo);
                 setCardFlipEventHandler(playerCard);
                 playerCardPuzzle.add(playerCard, col, row);
                 tempCardNo++;
@@ -112,7 +112,7 @@ public class CardPuzzleController {
     private void setCardFlipEventHandler(PlayerCard playerCard){
         playerCard.setOnMouseClicked((MouseEvent e)->{
             //If (the game is not running) or (the card is already flipped open) or (no more card flipping is allowed)
-            if (!mainController.getIsGameRunning() || playerCard.getIsFlippedOpen() || cardFlippedCount == 0) return; // do nothing
+            if (!mainController.checkIsGameRunning() || playerCard.getIsFlippedOpen() || cardFlippedCount == 0) return; // do nothing
 
             //Note that 1 click has executed
             cardFlippedCount--;
@@ -127,16 +127,16 @@ public class CardPuzzleController {
             } else {
                 flipOpen(playerCard, () -> {    //Flip this card open
                     if (prevCardFlipped != null && playerCard.getPlayerCardID() == prevCardFlipped.getPlayerCardID()){ //If this card is the same as the previous flipped one
-                        prevCardFlipped.setMatchedStatus(true);                             //Set these 2 cards' matched status to true so that it wont be automatically flipped close
+                        prevCardFlipped.setMatchedStatus(true);      //Set these 2 cards' matched status to true so that it wont be automatically flipped close
                         playerCard.setMatchedStatus(true);
-                        pairMatchedCount++;
-                        if (pairMatchedCount == 10) mainController.handleGameWon();
+                        pairMatchedCount++;                          //Increase the number of pairs have been matched
+                        if (pairMatchedCount == 10) mainController.handleGameWon();  //If all the pairs have been matched, handle game win
                     } else { //If this card is no the same as the previous flipped one
                         if (prevCardFlipped != null) flipClose(prevCardFlipped); //Flip close the previous card
                         flipClose(playerCard);      //Flip close this card
                     }
                     prevCardFlipped = null;
-                    cardFlippedCount = 2;
+                    cardFlippedCount = 2; //Allow for the next 2 click to flip the card
                 });
             }
         });

@@ -28,14 +28,14 @@ public class SoundController {
     public SoundController(){
         isEnabledSound = true;                                                        //Sound is enabled at first
         btnSound = new Sound("BUTTON_SOUND");                              //Create a "button sound" object
+        backgroundMusic = new Sound("BACKGROUND_MUSIC");                   //Create a "background music" sound object
         soundOnImg = new Image(SOUND_ON_IMG_URL);         //Load "sound on" image object for sound enabled button
         soundOffImg = new Image(SOUND_OFF_IMG_URL);       //Load "sound off" image object for sound enabled button
-        backgroundMusic = new Sound("BACKGROUND_MUSIC");                   //Create a "background music" sound object
     }
 
     public void initialize(){
         setSoundEnableButtonImage();    //Create BackgroundImage object for setting background image of the sound button
-        setSoundEnableBtnHandler();      //Set On Mouse Click event handler for the sound enabled button
+        setSoundEnableBtnEventHandler();      //Set On Mouse Click event handler for the sound enabled button
     }
 
     public void setSoundEnableButtonImage(){
@@ -44,7 +44,7 @@ public class SoundController {
         soundEnabledBtn.setBackground(bgSoundOnImg);    //At first, the sound is already on and the background image is "sound on" image
     }
 
-    public void setSoundEnableBtnHandler() {
+    public void setSoundEnableBtnEventHandler() {
         soundEnabledBtn.setOnMouseClicked((MouseEvent e) -> {
             btnSound.makeSound();                                   //Make "button sound" when clicked
             //If the system's sound is enabled

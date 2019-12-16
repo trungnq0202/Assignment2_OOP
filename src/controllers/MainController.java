@@ -22,9 +22,6 @@ public class MainController {
     @FXML private LevelController levelController;
     @FXML private ScoreController scoreController;
 
-    public MainController(){
-    }
-
     //After the fxml files are loaded and all the nested controllers are loaded, this method is called by the program
     @FXML private void initialize(){
         injectMainControllerInNestedControllers();
@@ -38,7 +35,7 @@ public class MainController {
         countdownTimerController.resetTimer();          //Reset the timer for
     }
 
-    public void injectMainControllerInNestedControllers(){
+    private void injectMainControllerInNestedControllers(){
         cardPuzzleController.injectMainController(this);
         soundController.injectMainController(this);
         countdownTimerController.injectMainController(this);
@@ -46,7 +43,7 @@ public class MainController {
         scoreController.injectMainController(this);
     }
 
-    public boolean getIsEnabledSound(){
+    public boolean checkIsEnabledSound(){
         return soundController.getIsSoundEnabled();
     }
 
@@ -81,19 +78,22 @@ public class MainController {
 
         Label congratsMessage = new Label("Congratulations, you won!");
 
+        //Announce the users their score and time taken to win previous game
         Label lastGameScoreLabel = new Label("You scored " + lastGameScore + " points in the last game in "
                 + countdownTimerController.getTimeElapsed() + "second(s)" );
 
-        Button playAgainBtn = new Button("Play Again");
-        Button quitBtn = new Button("Quit");
+        Button playAgainBtn = new Button("Play Again"); //"Play Again" Button
+        Button quitBtn = new Button("Quit");            //"Quit" Button
 
+        //If the user click "play again" button
         playAgainBtn.setOnMouseClicked(e -> {
-            popUpWindow.close();
-            startNewGame();
+            popUpWindow.close();  //Close this window
+            startNewGame();        //Make a new game
         });
 
+        //If the user click "exit" button
         quitBtn.setOnMouseClicked(e -> {
-            Platform.exit();
+            Platform.exit();        //Exit the game
             System.exit(0);
         });
 
@@ -121,13 +121,15 @@ public class MainController {
         Button playAgainBtn = new Button("Play Again");
         Button quitBtn = new Button("Quit");
 
+        //If the user click "play again" button
         playAgainBtn.setOnMouseClicked(e -> {
-            popUpWindow.close();
-            startNewGame();
+            popUpWindow.close();    //Close this window
+            startNewGame();         //Make a new game
         });
 
+        //If the user click "exit" button
         quitBtn.setOnMouseClicked(e -> {
-            Platform.exit();
+            Platform.exit();         //Exit the game
             System.exit(0);
         });
 
@@ -144,8 +146,8 @@ public class MainController {
         popUpWindow.show();
     }
 
-    public boolean getIsGameRunning(){
-        return countdownTimerController.getIsGameRunning();
+    public boolean checkIsGameRunning(){
+        return countdownTimerController.checkIsGameRunning();
     }
 
 

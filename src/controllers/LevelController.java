@@ -16,6 +16,7 @@ public class LevelController {
     private MainController mainController; //Communicate with others controller through maincontroller
     private int gameLevel;
 
+
     //Injecting maincontroller
     public void injectMainController(MainController mainController){this.mainController = mainController;}
 
